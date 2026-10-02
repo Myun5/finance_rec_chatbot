@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    회원가입
+</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family:
+        Pretendard,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #f4f7f6;
+
+    color: #222;
+}
+
+
+header {
+
+    height: 72px;
+
+    background: white;
+
+    border-bottom:
+        1px solid #e7e7e7;
+}
+
+
+.header-inner {
+
+    height: 100%;
+
+    max-width: 1050px;
+
+    margin: auto;
+
+    padding: 0 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.logo {
+
+    width: 120px;
+}
+
+
+.login-link {
+
+    text-decoration: none;
+
+    color: #008c7c;
+
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+
+.container {
+
+    max-width: 850px;
+
+    margin:
+        50px auto;
+
+    padding: 50px;
+
+    background: white;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 35px
+        rgba(
+            0,
+            0,
+            0,
+            .06
+        );
+}
+
+
+.title {
+
+    margin-bottom: 35px;
+}
+
+
+.title h1 {
+
+    font-size: 30px;
+
+    margin-bottom: 10px;
+}
+
+
+.title p {
+
+    color: #777;
+
+    line-height: 1.7;
+}
+
+
+.section-title {
+
+    margin:
+        28px 0
+        18px;
+
+    padding-left: 12px;
+
+    border-left:
+        4px solid #009b87;
+
+    font-size: 17px;
+}
+
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 20px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #555;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    height: 50px;
+
+    border:
+        1px solid #ddd;
+
+    border-radius: 11px;
+
+    padding:
+        0 14px;
+
+    outline: none;
+
+    background: white;
+
+    font-size: 14px;
+}
+
+
+input:focus,
+select:focus {
+
+    border-color: #009b87;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            0,
+            155,
+            135,
+            .08
+        );
+}
+
+
+input[type="file"] {
+
+    height: auto;
+
+    padding: 12px;
+}
+
+
+.full {
+
+    grid-column:
+        1 / -1;
+}
+
+
+.error {
+
+    padding: 13px;
+
+    background: #fff0f0;
+
+    color: #cc3e3e;
+
+    border-radius: 10px;
+
+    margin-bottom: 20px;
+
+    font-size: 13px;
+}
+
+
+.notice {
+
+    margin-top: 30px;
+
+    background: #edf9f7;
+
+    color: #4d6e69;
+
+    padding: 16px;
+
+    border-radius: 12px;
+
+    line-height: 1.7;
+
+    font-size: 13px;
+}
+
+
+.buttons {
+
+    margin-top: 35px;
+
+    display: flex;
+
+    gap: 12px;
+}
+
+
+.cancel,
+.submit {
+
+    flex: 1;
+
+    height: 53px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+
+    font-weight: 800;
+}
+
+
+.cancel {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    border:
+        1px solid #ddd;
+
+    color: #555;
+
+    background: white;
+}
+
+
+.submit {
+
+    border: none;
+
+    color: white;
+
+    background: #008c7c;
+
+    cursor: pointer;
+}
+
+
+.submit:hover {
+
+    background: #007469;
+}
+
+
+@media (
+    max-width: 700px
+) {
+
+    .container {
+
+        margin: 20px;
+
+        padding:
+            30px 22px;
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .full {
+
+        grid-column: auto;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+<div class="header-inner">
+
+    <a href="/login">
+
+        <img
+            src="/static/logo.png"
+            class="logo"
+            alt="하나은행"
+        >
+
+    </a>
+
+
+    <a
+        href="/login"
+        class="login-link"
+    >
+        로그인
+    </a>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+
+<div class="title">
+
+    <h1>
+        회원가입
+    </h1>
+
+    <p>
+        회원님의 정보를 입력하면
+        맞춤형 예금상품을 추천해드립니다.
+    </p>
+
+</div>
+
+
+{% if error %}
+
+<div class="error">
+    {{ error }}
+</div>
+
+{% endif %}
+
+
+<form
+    action="/signup"
+    method="post"
+    enctype="multipart/form-data"
+>
+
+
+<h3 class="section-title">
+    기본 정보
+</h3>
+
+
+<div class="form-grid">
+
+
+    <div class="form-group">
+
+        <label>
+            아이디
+        </label>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="4자 이상"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            비밀번호
+        </label>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            이름
+        </label>
+
+        <input
+            type="text"
+            name="name"
+            placeholder="홍길동"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            이메일
+        </label>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="example@email.com"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            성별
+        </label>
+
+        <select
+            name="gender"
+            required
+        >
+
+            <option value="">
+                선택
+            </option>
+
+            <option value="남성">
+                남성
+            </option>
+
+            <option value="여성">
+                여성
+            </option>
+
+            <option value="기타">
+                기타
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            나이
+        </label>
+
+        <input
+            type="number"
+            name="age"
+            min="14"
+            max="120"
+            placeholder="예: 28"
+            required
+        >
+
+    </div>
+
+
+</div>
+
+
+<h3 class="section-title">
+    금융 정보
+</h3>
+
+
+<div class="form-grid">
+
+
+    <div class="form-group">
+
+        <label>
+            투자성향
+        </label>
+
+        <select
+            name="investment_type"
+            required
+        >
+
+            <option value="">
+                투자성향 선택
+            </option>
+
+            <option value="안정형">
+                안정형
+            </option>
+
+            <option value="안정추구형">
+                안정추구형
+            </option>
+
+            <option value="위험중립형">
+                위험중립형
+            </option>
+
+            <option value="적극투자형">
+                적극투자형
+            </option>
+
+            <option value="공격투자형">
+                공격투자형
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            직업
+        </label>
+
+        <select
+            name="job"
+            required
+        >
+
+            <option value="">
+                직업 선택
+            </option>
+
+            <option value="직장인">
+                직장인
+            </option>
+
+            <option value="공무원">
+                공무원
+            </option>
+
+            <option value="군인">
+                군인
+            </option>
+
+            <option value="학생">
+                학생
+            </option>
+
+            <option value="자영업자">
+                자영업자
+            </option>
+
+            <option value="프리랜서">
+                프리랜서
+            </option>
+
+            <option value="주부">
+                주부
+            </option>
+
+            <option value="무직">
+                무직
+            </option>
+
+            <option value="기타">
+                기타
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group full">
+
+        <label>
+            연 소득
+        </label>
+
+        <input
+            type="number"
+            name="income"
+            min="0"
+            step="1000000"
+            placeholder="예: 40000000"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group full">
+
+        <label>
+            프로필 사진
+        </label>
+
+        <input
+            type="file"
+            name="profile_image"
+            accept="image/*"
+        >
+
+    </div>
+
+
+</div>
+
+
+<div class="notice">
+
+    입력한 나이, 투자성향,
+    직업, 소득 정보는
+    금융상품 추천에 활용됩니다.
+
+</div>
+
+
+<div class="buttons">
+
+    <a
+        href="/login"
+        class="cancel"
+    >
+        취소
+    </a>
+
+
+    <button
+        type="submit"
+        class="submit"
+    >
+        회원가입
+    </button>
+
+</div>
+
+
+</form>
+
+</main>
+
+
+</body>
+
+</html> 

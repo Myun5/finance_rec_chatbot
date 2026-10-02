@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>하나 금융상품 추천</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+
+    font-family:
+        Pretendard,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #007f72 0%,
+            #009b87 50%,
+            #20b89d 100%
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+}
+
+
+.login-container {
+
+    width: 100%;
+    max-width: 1050px;
+
+    min-height: 620px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    display: grid;
+
+    grid-template-columns:
+        1.1fr .9fr;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, .20);
+}
+
+
+.brand {
+
+    background:
+        linear-gradient(
+            145deg,
+            #007f72,
+            #00aa91
+        );
+
+    color: white;
+
+    padding: 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.logo {
+
+    width: 145px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 10px 15px;
+}
+
+
+.brand h1 {
+
+    font-size: 42px;
+
+    line-height: 1.3;
+
+    margin-bottom: 18px;
+}
+
+
+.brand p {
+
+    line-height: 1.8;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .82
+        );
+}
+
+
+.tags {
+
+    display: flex;
+    gap: 9px;
+
+    flex-wrap: wrap;
+}
+
+
+.tag {
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .25
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .10
+        );
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+}
+
+
+.login-panel {
+
+    padding: 75px 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.login-panel h2 {
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+
+.description {
+
+    color: #888;
+
+    margin-bottom: 35px;
+}
+
+
+.form-group {
+
+    margin-bottom: 18px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #555;
+
+    margin-bottom: 8px;
+}
+
+
+input {
+
+    width: 100%;
+
+    height: 52px;
+
+    padding:
+        0 15px;
+
+    border:
+        1px solid #ddd;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    transition: .2s;
+}
+
+
+input:focus {
+
+    border-color: #009b87;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(
+            0,
+            155,
+            135,
+            .10
+        );
+}
+
+
+.login-button {
+
+    width: 100%;
+
+    height: 53px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #008c7c;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    margin-top: 7px;
+}
+
+
+.login-button:hover {
+
+    background: #007469;
+}
+
+
+.signup {
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #777;
+}
+
+
+.signup a {
+
+    color: #008c7c;
+
+    font-weight: 800;
+
+    text-decoration: none;
+}
+
+
+.error {
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    background: #fff0f0;
+
+    color: #ce4545;
+
+    margin-bottom: 18px;
+
+    font-size: 13px;
+}
+
+
+@media (
+    max-width: 800px
+) {
+
+    .login-container {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .brand {
+
+        min-height: 270px;
+
+        padding: 35px;
+    }
+
+
+    .brand h1 {
+
+        font-size: 28px;
+    }
+
+
+    .login-panel {
+
+        padding: 40px 30px;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="login-container">
+
+
+    <section class="brand">
+
+
+        <img
+            src="/static/logo.png"
+            class="logo"
+            alt="하나은행"
+        >
+
+
+        <div>
+
+            <h1>
+                나에게 맞는<br>
+                금융상품을 찾아보세요.
+            </h1>
+
+            <p>
+                회원님의 나이, 직업,
+                투자성향과 소득을 분석하여
+                다양한 예금상품 중
+                적합한 상품을 추천해드립니다.
+            </p>
+
+        </div>
+
+
+        <div class="tags">
+
+            <span class="tag">
+                맞춤 상품 추천
+            </span>
+
+            <span class="tag">
+                AI 금융 상담
+            </span>
+
+            <span class="tag">
+                예금상품 비교
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+    <section class="login-panel">
+
+
+        <h2>
+            로그인
+        </h2>
+
+
+        <div class="description">
+            하나 금융상품 추천 서비스를 시작하세요.
+        </div>
+
+
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form
+            method="post"
+            action="/login"
+        >
+
+
+            <div class="form-group">
+
+                <label>
+                    아이디
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="아이디"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    비밀번호
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="비밀번호"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+                로그인
+            </button>
+
+
+        </form>
+
+
+        <div class="signup">
+
+            아직 회원이 아니신가요?
+
+            <a href="/signup">
+                회원가입
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+</body>
+
+</html>

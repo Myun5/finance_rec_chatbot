@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    하나 금융상품 추천
+</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    font-family:
+        Pretendard,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #f5f7f7;
+
+    color: #222;
+}
+
+
+header {
+
+    height: 75px;
+
+    background: white;
+
+    border-bottom:
+        1px solid #e8e8e8;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+}
+
+
+.header-inner {
+
+    max-width: 1200px;
+
+    height: 100%;
+
+    margin: auto;
+
+    padding: 0 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.logo {
+
+    width: 120px;
+}
+
+
+nav {
+
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+nav a {
+
+    text-decoration: none;
+
+    color: #555;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+nav a.active {
+
+    color: #008c7c;
+}
+
+
+.profile {
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 14px;
+}
+
+
+.profile img {
+
+    width: 38px;
+    height: 38px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border:
+        2px solid #d8f1ec;
+}
+
+
+.hero {
+
+    padding:
+        65px 25px
+        95px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #00796e,
+            #00a98f
+        );
+
+    color: white;
+}
+
+
+.hero-inner {
+
+    max-width: 1200px;
+
+    margin: auto;
+}
+
+
+.hello {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .75
+        );
+
+    margin-bottom: 8px;
+}
+
+
+.hero h1 {
+
+    font-size: 36px;
+
+    line-height: 1.4;
+
+    margin-bottom: 15px;
+}
+
+
+.hero p {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .80
+        );
+
+    line-height: 1.7;
+}
+
+
+.tags {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 25px;
+}
+
+
+.tag {
+
+    padding:
+        8px 14px;
+
+    border-radius: 999px;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .18
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .12
+        );
+
+    font-size: 13px;
+}
+
+
+main {
+
+    max-width: 1200px;
+
+    margin:
+        -45px auto
+        70px;
+
+    padding:
+        0 25px;
+}
+
+
+.product-section {
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 34px;
+
+    box-shadow:
+        0 9px 30px
+        rgba(
+            0,
+            0,
+            0,
+            .05
+        );
+}
+
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 27px;
+}
+
+
+.section-header h2 {
+
+    font-size: 24px;
+}
+
+
+.section-header p {
+
+    margin-top: 7px;
+
+    color: #888;
+
+    font-size: 14px;
+}
+
+
+.badge {
+
+    padding:
+        8px 14px;
+
+    border-radius: 999px;
+
+    background: #e7f7f4;
+
+    color: #008c7c;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            1fr
+        );
+
+    gap: 20px;
+}
+
+
+.card {
+
+    position: relative;
+
+    border:
+        1px solid #e7eceb;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    min-height: 390px;
+
+    transition: .2s;
+}
+
+
+.card:hover {
+
+    transform:
+        translateY(-5px);
+
+    border-color: #71c7ba;
+
+    box-shadow:
+        0 15px 30px
+        rgba(
+            0,
+            140,
+            124,
+            .10
+        );
+}
+
+
+.rank {
+
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #008c7c;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.bank {
+
+    color: #008c7c;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+
+.name {
+
+    font-size: 19px;
+
+    line-height: 1.4;
+
+    font-weight: 800;
+
+    min-height: 55px;
+
+    padding-right: 28px;
+}
+
+
+.rate-box {
+
+    margin:
+        22px 0;
+
+    padding: 18px;
+
+    border-radius: 13px;
+
+    background: #f3faf8;
+}
+
+
+.rate-label {
+
+    font-size: 12px;
+
+    color: #777;
+
+    margin-bottom: 5px;
+}
+
+
+.rate {
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    color: #e64a4a;
+}
+
+
+.basic {
+
+    margin-top: 5px;
+
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+.info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding:
+        8px 0;
+
+    border-bottom:
+        1px solid #eee;
+
+    font-size: 13px;
+}
+
+
+.info span {
+
+    color: #888;
+}
+
+
+.info strong {
+
+    text-align: right;
+}
+
+
+.reason {
+
+    margin-top: 17px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    background: #eef9f7;
+
+    color: #49645f;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+.reason strong {
+
+    color: #008c7c;
+}
+
+
+.empty {
+
+    grid-column:
+        1 / -1;
+
+    text-align: center;
+
+    padding: 60px;
+
+    color: #888;
+}
+
+
+.chat-label {
+
+    position: fixed;
+
+    right: 27px;
+    bottom: 112px;
+
+    z-index: 299;
+
+    background: #25322f;
+
+    color: white;
+
+    border-radius: 9px;
+
+    padding:
+        8px 11px;
+
+    font-size: 11px;
+}
+
+
+.chatbot {
+
+    position: fixed;
+
+    right: 30px;
+    bottom: 30px;
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 8px 25px
+        rgba(
+            0,
+            0,
+            0,
+            .18
+        );
+
+    z-index: 300;
+
+    transition: .2s;
+}
+
+
+.chatbot:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.03);
+}
+
+
+.chatbot img {
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    object-fit: contain;
+}
+
+
+@media (
+    max-width: 900px
+) {
+
+    .cards {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    nav > a {
+
+        display: none;
+    }
+
+
+    .hero h1 {
+
+        font-size: 28px;
+    }
+
+
+    .product-section {
+
+        padding: 22px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="header-inner">
+
+
+    <a href="/main">
+
+        <img
+            src="/static/logo.png"
+            class="logo"
+            alt="하나은행"
+        >
+
+    </a>
+
+
+    <nav>
+
+        <a
+            href="/main"
+            class="active"
+        >
+            금융상품
+        </a>
+
+        <a href="/chatbot">
+            AI 상품상담
+        </a>
+
+
+        <div class="profile">
+
+            <img
+                src="{{ user.profile_image }}"
+                alt="프로필"
+            >
+
+            <span>
+                {{ user.name }}님
+            </span>
+
+        </div>
+
+
+        <a href="/logout">
+            로그아웃
+        </a>
+
+    </nav>
+
+
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<div class="hero-inner">
+
+    <div class="hello">
+        반갑습니다,
+        {{ user.name }}님
+    </div>
+
+
+    <h1>
+        지금 회원님에게<br>
+        어울리는 금융상품이에요.
+    </h1>
+
+
+    <p>
+        회원님의 금융정보와
+        상품 금리 및 가입조건을
+        종합해 추천했습니다.
+    </p>
+
+
+    <div class="tags">
+
+        <span class="tag">
+            {{ user.age }}세
+        </span>
+
+        <span class="tag">
+            {{ user.investment_type }}
+        </span>
+
+        <span class="tag">
+            {{ user.job }}
+        </span>
+
+        <span class="tag">
+            연소득
+            {{ "{:,}".format(user.income) }}원
+        </span>
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+<main>
+
+
+<section class="product-section">
+
+
+<div class="section-header">
+
+    <div>
+
+        <h2>
+            맞춤 추천 TOP 3
+        </h2>
+
+        <p>
+            회원정보와 금융상품 데이터를
+            기반으로 선정한 상품입니다.
+        </p>
+
+    </div>
+
+
+    <div class="badge">
+        PERSONALIZED
+    </div>
+
+</div>
+
+
+<div class="cards">
+
+
+{% if products %}
+
+
+{% for product in products %}
+
+
+<article class="card">
+
+
+    <div class="rank">
+        {{ loop.index }}
+    </div>
+
+
+    <div class="bank">
+        {{ product.bank }}
+    </div>
+
+
+    <div class="name">
+        {{ product.name }}
+    </div>
+
+
+    <div class="rate-box">
+
+        <div class="rate-label">
+            최고금리
+        </div>
+
+        <div class="rate">
+            {{ product.max_rate }}
+        </div>
+
+        <div class="basic">
+            기본금리
+            {{ product.basic_rate }}
+        </div>
+
+    </div>
+
+
+    <div class="info">
+
+        <span>
+            가입기간
+        </span>
+
+        <strong>
+            {{ product.period or '-' }}
+        </strong>
+
+    </div>
+
+
+    <div class="info">
+
+        <span>
+            가입금액
+        </span>
+
+        <strong>
+            {{ product.amount or '-' }}
+        </strong>
+
+    </div>
+
+
+    <div class="info">
+
+        <span>
+            가입방법
+        </span>
+
+        <strong>
+            {{ product.method or '-' }}
+        </strong>
+
+    </div>
+
+
+    <div class="reason">
+
+        <strong>
+            추천 이유
+        </strong>
+
+        <br>
+
+        {{ product.reason }}
+
+    </div>
+
+
+</article>
+
+
+{% endfor %}
+
+
+{% else %}
+
+
+<div class="empty">
+
+    금융상품 데이터를
+    불러오지 못했습니다.
+
+    <br><br>
+
+    <strong>
+        static/예금목록.csv
+    </strong>
+
+    파일을 확인해주세요.
+
+</div>
+
+
+{% endif %}
+
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<div class="chat-label">
+    AI에게 상품 물어보기
+</div>
+
+
+<a
+    href="/chatbot"
+    class="chatbot"
+>
+
+    <img
+        src="/static/chatbot.png"
+        alt="챗봇"
+    >
+
+</a>
+
+
+</body>
+
+</html>
